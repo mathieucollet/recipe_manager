@@ -28,7 +28,11 @@ DB_USERNAME=username
 DB_PASSWORD=password
 ```
 
-6 - Enfin dans le dossier du projet faire :
+6 - On build la BDD
+
+`php artisan migrate`
+
+7 - Enfin dans le dossier du projet faire :
 `php artisan serve`
 
 Et vous rendre à l'url qui vous est donnée
