@@ -13,16 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get(
-    '/',
-    function () {
-        return view('home');
-    }
-);
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get(
     '/compose',
@@ -35,5 +29,6 @@ Route::group(
     ['middleware' => 'auth'],
     function () {
         Route::resource('ingredient', 'IngredientController');
+        Route::resource('recipe', 'RecipeController');
     }
 );
