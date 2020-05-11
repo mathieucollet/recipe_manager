@@ -66,7 +66,7 @@ class RecipeController extends Controller
     public function show(Recipe $recipe): View
     {
         $this->authorize('view', $recipe);
-
+        
         return view('recipes.show', compact('recipe'));
     }
 

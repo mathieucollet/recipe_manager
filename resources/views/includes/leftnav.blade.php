@@ -17,6 +17,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('recipe.marks') }}">
+                    Recettes favorites
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('recipe.index') }}">
                     Mes recettes
                 </a>

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property mixed id
@@ -15,12 +16,19 @@ class Recipe extends Model
 {
     protected $guarder = [];
 
+    protected $appends = ['marked'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getMarkedAttribute()
+    {
+        return Auth::user()->marks()->where('recipe_id', $this->id)->exists();
     }
 
     /**

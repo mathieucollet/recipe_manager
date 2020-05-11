@@ -81,7 +81,7 @@ class RecipePolicy
     {
         return $user->isNot($recipe->user);
     }
-    
+
 
     /**
      * Determine whether the user can restore the model.
