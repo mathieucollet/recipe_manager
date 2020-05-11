@@ -1,5 +1,5 @@
-<nav class="col-md-2 d-none d-md-block bg-light sidebar position-absolute mt-4">
-    <div class="sidebar-sticky">
+<nav class="navbar navbar-expand-md fixed-left mt-5">
+    <div class="sidebar-sticky mt-2">
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link" href="/home">
@@ -7,7 +7,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/compose">
                     Créer ma recette
                 </a>
             </li>
