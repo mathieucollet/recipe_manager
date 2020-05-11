@@ -63,7 +63,7 @@ class IngredientController extends Controller
      */
     public function show(Ingredient $ingredient): View
     {
-        $this->authorize('view', Ingredient::class);
+        $this->authorize('view', $ingredient);
 
         return view('ingredients.show', compact('ingredient'));
     }
@@ -78,7 +78,7 @@ class IngredientController extends Controller
      */
     public function edit(Ingredient $ingredient): View
     {
-        $this->authorize('update', Ingredient::class);
+        $this->authorize('update', $ingredient);
 
         return view('ingredients.edit', compact('ingredient'));
     }
@@ -94,7 +94,7 @@ class IngredientController extends Controller
      */
     public function update(Request $request, Ingredient $ingredient): Redirector
     {
-        $this->authorize('update', Ingredient::class);
+        $this->authorize('update', $ingredient);
 
         $ingredient->update($this->validatedRequest(false));
 
@@ -111,13 +111,18 @@ class IngredientController extends Controller
      */
     public function destroy(Ingredient $ingredient): Redirector
     {
-        $this->authorize('delete', Ingredient::class);
+        $this->authorize('delete', $ingredient);
         $redirect = $ingredient->home();
         $ingredient->delete();
         return redirect($redirect);
     }
 
-    private function validatedRequest(bool $create = true)
+    /**
+     * @param  bool  $create
+     *
+     * @return array
+     */
+    private function validatedRequest(bool $create = true): array
     {
         return request()->validate(
             [

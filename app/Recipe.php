@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property mixed id
+ * @property mixed shared
  * @property mixed user
+ * @method static shared()
  */
-class Ingredient extends Model
+class Recipe extends Model
 {
-    protected $guarded = [];
+    protected $guarder = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -26,7 +28,7 @@ class Ingredient extends Model
      */
     public function path(): string
     {
-        return "/ingredient/{$this->id}";
+        return "/recipe/{$this->id}";
     }
 
     /**
@@ -34,6 +36,24 @@ class Ingredient extends Model
      */
     public function home(): string
     {
-        return "/ingredient";
+        return "/recipe";
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShared(): bool
+    {
+        return $this->shared == true;
+    }
+
+    /**
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopeShared($query)
+    {
+        return $query->where('shared', true);
     }
 }
