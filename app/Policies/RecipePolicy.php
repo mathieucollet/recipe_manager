@@ -77,6 +77,12 @@ class RecipePolicy
         return $user->is($recipe->user);
     }
 
+    public function marking(User $user, Recipe $recipe)
+    {
+        return $user->isNot($recipe->user);
+    }
+    
+
     /**
      * Determine whether the user can restore the model.
      *

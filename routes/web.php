@@ -28,7 +28,12 @@ Route::get(
 Route::group(
     ['middleware' => 'auth'],
     function () {
+        // Ingredients
         Route::resource('ingredient', 'IngredientController');
+
+        // Recipes
+        Route::get('/recipe/marks', 'RecipeController@marks')->name('recipe.marks');
+        Route::get('/recipe/{recipe}/mark', 'RecipeController@marking')->name('recipe.marking');
         Route::resource('recipe', 'RecipeController');
     }
 );
