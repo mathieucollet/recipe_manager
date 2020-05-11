@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Ingredient;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IngredientController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $ingredients = Auth::user()->ingredients;
+
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**
@@ -31,6 +35,7 @@ class IngredientController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,6 +47,7 @@ class IngredientController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Ingredient  $ingredient
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Ingredient $ingredient)
@@ -53,6 +59,7 @@ class IngredientController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Ingredient  $ingredient
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Ingredient $ingredient)
@@ -64,7 +71,8 @@ class IngredientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Ingredient  $ingredient
+     * @param  \App\Ingredient           $ingredient
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Ingredient $ingredient)
@@ -76,6 +84,7 @@ class IngredientController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Ingredient  $ingredient
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Ingredient $ingredient)
