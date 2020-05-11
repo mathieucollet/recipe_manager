@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -57,5 +58,13 @@ class User extends Authenticatable
     public function recipes(): hasMany
     {
         return $this->hasMany(Recipe::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function marks(): BelongsToMany
+    {
+        return $this->belongsToMany(Recipe::class);
     }
 }

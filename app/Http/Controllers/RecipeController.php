@@ -35,7 +35,7 @@ class RecipeController extends Controller
     {
         $this->authorize('create', Recipe::class);
 
-        return view('recipe.create');
+        return view('recipes.create');
     }
 
     /**
@@ -82,7 +82,7 @@ class RecipeController extends Controller
     {
         $this->authorize('update', $recipe);
 
-        return view('recipe.edit', compact('recipe'));
+        return view('recipes.edit', compact('recipe'));
     }
 
     /**
@@ -118,6 +118,24 @@ class RecipeController extends Controller
         $redirect = $recipe->home();
         $recipe->delete();
         return redirect($redirect);
+    }
+
+    public function marking(Recipe $recipe)
+    {
+        $this->authorize('marking', $recipe);
+
+        Auth::user()->marks()->toggle($recipe->id);
+
+        return redirect()->back();
+    }
+
+    public function marks()
+    {
+        $this->authorize('viewAny', Recipe::class);
+
+        $recipes = Auth::user()->marks;
+
+        return view('recipes.marks', compact('recipes'));
     }
 
     private function validatedRequest(bool $create = true)

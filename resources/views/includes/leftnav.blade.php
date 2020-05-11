@@ -2,24 +2,24 @@
     <div class="sidebar-sticky mt-2">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="/home">
+                <a class="nav-link" href="{{ route('home') }}">
                     Accueil
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/compose">
+                <a class="nav-link" href="{{ route('recipe.create') }}">
                     Créer ma recette
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('ingredient.index') }}">
                     Liste des ingrédients
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('recipe.index') }}">
                     Mes recettes
-            </a>
+                </a>
             </li>
 
         </ul>
