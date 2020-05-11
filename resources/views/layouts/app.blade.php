@@ -22,8 +22,10 @@
 <body>
     @include('includes.topnav')
     @include('includes.leftnav')
-    <main class="py-4">
-        @yield('content')
-    </main>
+    <div class="container-fluid">
+        <main class="py-4 mt-5">
+            @yield('content')
+        </main>
+    </div>
 </body>
 </html>
