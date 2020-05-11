@@ -4,7 +4,7 @@
     <!-- FIXME: leftnav links break, but topnav link still works -->
     <div class="container-fluid">
         <!-- TODO: add name attributs to send data  -->
-        <form action="/recipe" method="post">
+        <form action="/recipe" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
 
@@ -53,8 +53,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="in_picts">Photos : </label><br>
-                            <input type="file" id="in_picts" accept="image/*" multiple>
+                            <label for="pictures">Photos : </label><br>
+                            <input type="file" id="pictures" name="pictures[]" accept="image/*" multiple>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Créer ma nouvelle recette !</button>

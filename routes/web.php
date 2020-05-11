@@ -13,17 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@index')->name('home');
-
 Auth::routes();
 
-Route::get(
-    '/compose',
-    function () {
-        return view('composeRecipe');
-    }
-);
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(
     ['middleware' => 'auth'],
@@ -35,5 +28,8 @@ Route::group(
         Route::get('/recipe/marks', 'RecipeController@marks')->name('recipe.marks');
         Route::get('/recipe/{recipe}/mark', 'RecipeController@marking')->name('recipe.marking');
         Route::resource('recipe', 'RecipeController');
+
+        // Picture
+        Route::delete('/picture/{picture}', 'PictureController@destroy')->name('picture.destroy');
     }
 );

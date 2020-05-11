@@ -5,12 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 /**
  * @property mixed id
  * @property mixed shared
  * @property mixed user
+ * @property mixed user_id
  * @method static shared()
  */
 class Recipe extends Model
@@ -33,6 +35,14 @@ class Recipe extends Model
     public function ingredients(): BelongsToMany
     {
         return $this->belongsToMany(Ingredient::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pictures(): HasMany
+    {
+        return $this->hasMany(Picture::class);
     }
 
     /**
