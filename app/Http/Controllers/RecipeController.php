@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Recipe;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
@@ -35,7 +34,9 @@ class RecipeController extends Controller
     {
         $this->authorize('create', Recipe::class);
 
-        return view('recipes.create');
+        $ingredients = Auth::user()->ingredients;
+
+        return view('recipes.create', compact('ingredients'));
     }
 
     /**
@@ -46,11 +47,16 @@ class RecipeController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Request $request): Redirector
+    public function store(): RedirectResponse
     {
+//        dd(request());
         $this->authorize('create', Recipe::class);
 
         $recipe = Auth::user()->recipes()->create($this->validatedRequest());
+
+        if ($recipe) {
+            $recipe->ingredients()->sync($this->validatedIngredients()['ingredients']);
+        }
 
         return redirect($recipe->path());
     }
@@ -66,7 +72,7 @@ class RecipeController extends Controller
     public function show(Recipe $recipe): View
     {
         $this->authorize('view', $recipe);
-        
+
         return view('recipes.show', compact('recipe'));
     }
 
@@ -82,7 +88,9 @@ class RecipeController extends Controller
     {
         $this->authorize('update', $recipe);
 
-        return view('recipes.edit', compact('recipe'));
+        $ingredients = Auth::user()->ingredients;
+
+        return view('recipes.edit', compact('recipe', 'ingredients'));
     }
 
     /**
@@ -94,11 +102,15 @@ class RecipeController extends Controller
      * @return \Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, Recipe $recipe): Redirector
+    public function update(Recipe $recipe): RedirectResponse
     {
         $this->authorize('update', $recipe);
 
         $recipe->update($this->validatedRequest(false));
+
+        if ($recipe) {
+            $recipe->ingredients()->sync($this->validatedIngredients()['ingredients']);
+        }
 
         return redirect($recipe->path());
     }
@@ -112,7 +124,7 @@ class RecipeController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Exception
      */
-    public function destroy(Recipe $recipe): Redirector
+    public function destroy(Recipe $recipe): RedirectResponse
     {
         $this->authorize('delete', $recipe);
         $redirect = $recipe->home();
@@ -145,9 +157,19 @@ class RecipeController extends Controller
                 'name'         => ($create ? 'required|' : '') . 'string',
                 'description'  => ($create ? 'required|' : '') . 'string',
                 'instructions' => ($create ? 'required|' : '') . 'string',
-                'time'         => ($create ? 'required|' : '') . 'numeric',
-                'difficulty'   => ($create ? 'required|' : '') . 'numeric',
+                'minutes'      => ($create ? 'required|' : '') . 'integer',
+                'difficulty'   => ($create ? 'required|' : '') . 'integer',
                 'shared'       => 'boolean',
+            ]
+        );
+    }
+
+    private function validatedIngredients()
+    {
+        return request()->validate(
+            [
+//                'ingredients'   => 'required|array',
+'ingredients.*' => 'integer',
             ]
         );
     }

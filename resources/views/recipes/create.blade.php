@@ -13,7 +13,7 @@
 
                         <div class="form-group">
                             <label for="name">Nom : </label>
-                            <input type="text" class="form-control" id="name" placeholder="">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="">
                             @error('name')
                             <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
                             @enderror
@@ -21,7 +21,7 @@
 
                         <div class="form-group">
                             <label for="description">Description : </label>
-                            <input type="text" class="form-control" id="description" placeholder="">
+                            <input type="text" class="form-control" id="description" name="description" placeholder="">
                             @error('description')
                             <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
                             @enderror
@@ -48,7 +48,7 @@
 
                         <div class="form-group">
                             <label for="difficulty">Difficulté : </label><br>
-                            <input type="range" min="1" max="5" value="1" class="slider" id="difficulty">
+                            <input type="range" min="1" max="5" value="1" class="slider" id="difficulty" name="difficulty">
                             <p><span id="in_slider_value"></span></p>
                         </div>
 
@@ -65,13 +65,16 @@
                 <div class="col-2">
                     <h3>Sélectionnez les ingrédients nécessaires</h3>
                     <div class="form-group">
-                        <select class="selectpicker form-control" multiple data-live-search="true">
-                            <option value="val1">val1</option>
-                            <option value="val2">val2</option>
-                            <option value="val3">val3</option>
+                        <select class="selectpicker form-control" multiple data-live-search="true" name="ingredients[]">
+                            @foreach ($ingredients as $ingredient)
+                                <option value="{{ $ingredient->id}}">{{ $ingredient->name }}</option>
+                            @endforeach
                         </select>
+                        @error('ingredients')
+                        <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
+                        @enderror
                     </div>
-                </div class="col-2">
+                </div>
 
             </div>
         </form>
