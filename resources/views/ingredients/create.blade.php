@@ -23,7 +23,7 @@
             @enderror
         </div>
         
-        <button type="submit" class="btn btn-primary">Ajouter mon nouvel ingrédent !</button>
+        <button type="submit" class="btn btn-primary">Ajouter le nouvel ingrédient !</button>
         
     </div>
 </form>
