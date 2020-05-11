@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- FIXME: leftnav links break, but topnav link still works -->
     <div class="container-fluid">
-        <!-- TODO: add name attributs to send data  -->
         <form>
             <div class="row">
 

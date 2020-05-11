@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- FIXME: leftnav links break, but topnav link still works -->
     <div class="container-fluid">
-        <!-- TODO: add name attributs to send data  -->
         <form action="/recipe" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
