@@ -19,13 +19,6 @@
                             <label for="in_description">Description : </label>
                             <input type="text" class="form-control" id="in_description" placeholder="">
                         </div>
-                        <div class="form-group">
-                            <select class="selectpicker form-control">
-                                <option value="a">a</option>
-                                <option value="b">b</option>
-                                <option value="c">c</option>
-                            </select>
-                        </div>
 
                         <div class="form-group">
                             <label for="in_instructions">Instructions : </label>
@@ -57,13 +50,12 @@
 
                 <div class="col-2">
                     <h3>Sélectionnez les ingrédients nécessaires</h3>
-                    <div>
-                        <input id="in_ingredients_ing1" name="in_ingredients" type="checkbox" value="ing1">
-                        <label for="in_ingredients_ing1">ing1</label>
-                    </div>
-                    <div>
-                        <input id="in_ingredients_ing2" name="in_ingredients" type="checkbox" value="ing2">
-                        <label for="in_ingredients_ing2">ing2</label>
+                    <div class="form-group">
+                        <select class="selectpicker form-control" multiple data-live-search="true" >
+                            <option value="val1">val1</option>
+                            <option value="val2">val2</option>
+                            <option value="val3">val3</option>
+                        </select>
                     </div>
                 </div class="col-2">
 
