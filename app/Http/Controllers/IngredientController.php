@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Ingredient;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class IngredientController extends Controller
@@ -44,7 +44,7 @@ class IngredientController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(): Redirector
+    public function store(): RedirectResponse
     {
         $this->authorize('create', Ingredient::class);
 
@@ -92,7 +92,7 @@ class IngredientController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, Ingredient $ingredient): Redirector
+    public function update(Request $request, Ingredient $ingredient): RedirectResponse
     {
         $this->authorize('update', $ingredient);
 
@@ -109,7 +109,7 @@ class IngredientController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
      */
-    public function destroy(Ingredient $ingredient): Redirector
+    public function destroy(Ingredient $ingredient): RedirectResponse
     {
         $this->authorize('delete', $ingredient);
         $redirect = $ingredient->home();
