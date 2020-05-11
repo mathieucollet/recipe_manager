@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,10 +21,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    @include('includes.topnav')
-    @include('includes.leftnav')
-    <main class="py-4">
+@include('includes.topnav')
+@include('includes.leftnav')
+<div class="container-fluid">
+    <main class="py-4 mt-5">
         @yield('content')
     </main>
+</div>
 </body>
 </html>

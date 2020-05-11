@@ -6,3 +6,18 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Bootstrap-select
+@import '~bootstrap-select/sass/bootstrap-select';
+
+.fixed-left {
+  bottom: 0;
+  width: 232px;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  right: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1030;
+}
