@@ -82,7 +82,7 @@
 
 
     <script>
-        var slider = document.getElementById("in_slider");
+        var slider = document.getElementById("difficulty");
         var output = document.getElementById("in_slider_value");
         output.innerHTML = "⭐";
 
