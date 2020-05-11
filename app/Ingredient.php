@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property mixed id
+ * @property mixed user
+ */
 class Ingredient extends Model
 {
     protected $guarded = [];
@@ -15,5 +19,18 @@ class Ingredient extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function path()
+    {
+        return "/ingredients/{$this->id}";
+    }
+
+    public function home()
+    {
+        return "/ingredients";
     }
 }
