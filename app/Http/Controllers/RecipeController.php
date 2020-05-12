@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Recipe;
+use App\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -35,8 +36,9 @@ class RecipeController extends Controller
         $this->authorize('create', Recipe::class);
 
         $ingredients = Auth::user()->ingredients;
+        $tags = Tag::orderBy('name', 'asc')->get();
 
-        return view('recipes.create', compact('ingredients'));
+        return view('recipes.create', compact('ingredients', 'tags'));
     }
 
     /**
@@ -55,6 +57,7 @@ class RecipeController extends Controller
 
         if ($recipe) {
             $recipe->ingredients()->sync($this->validatedIngredients()['ingredients']);
+            $recipe->tags()->sync($this->validatedTags()['tags']);
             $pictures = $this->validatedPictures()['pictures'];
             foreach ($pictures as $picture) {
                 $path = $picture->store('recipe_pictures');
@@ -93,8 +96,9 @@ class RecipeController extends Controller
         $this->authorize('update', $recipe);
 
         $ingredients = Auth::user()->ingredients;
+        $tags = Tag::orderBy('name', 'asc')->get();
 
-        return view('recipes.edit', compact('recipe', 'ingredients'));
+        return view('recipes.edit', compact('recipe', 'ingredients', 'tags'));
     }
 
     /**
@@ -114,6 +118,7 @@ class RecipeController extends Controller
 
         if ($recipe) {
             $recipe->ingredients()->sync($this->validatedIngredients()['ingredients']);
+            $recipe->tags()->sync($this->validatedTags()['tags']);
             $pictures = $this->validatedPictures()['pictures'];
             foreach ($pictures as $picture) {
                 $path = $picture->store('recipe_pictures');
@@ -209,12 +214,28 @@ class RecipeController extends Controller
         );
     }
 
+    /**
+     * @return array
+     */
     public function validatedPictures(): array
     {
         return request()->validate(
             [
                 'pictures'   => 'required|array',
                 'pictures.*' => 'image',
+            ]
+        );
+    }
+
+    /**
+     * @return array
+     */
+    private function validatedTags(): array
+    {
+        return request()->validate(
+            [
+                'tags'   => 'required|array',
+                'tags.*' => 'integer',
             ]
         );
     }

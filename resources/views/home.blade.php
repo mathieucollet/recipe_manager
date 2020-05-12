@@ -20,34 +20,26 @@
 </div>
 </div> -->
         <div class="col-md-9 ml-sm-auto col-lg-10">
-            <form class="form-inline my-2 mb-4">
-                <input class="form-control mr-sm-2" type="search" placeholder="Rechercher une recette" aria-label="Search">
+            <form class="form-inline my-2 mb-4" action="/home" method="post">
+                @csrf
+                <input class="form-control mr-sm-2" type="search" placeholder="Rechercher une recette" aria-label="Search" name="search">
                 <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Rechercher</button>
+                <a href="/home" class="btn btn-outline-danger ml-4">raz</a>
             </form>
 
             <div class="row">
-                <div class="col-sm-3 mb-4">
-                    <div class="card">
-                        <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is
-                                a little longer.</p>
-                        </div>
-                        <div class="flex row ml-3 mb-2">
-                            <span class="badge badge-info flex col-2 text-white mr-1">Entrée</span>
-                            <span class="badge badge-info flex col-2 text-white mr-1">Plat</span>
-                            <span class="badge badge-info flex col-2 text-white mr-1">Dessert</span>
-                        </div>
-                    </div>
-                </div>
                 @foreach ($recipes as $recipe)
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 mb-3">
                         <div class="card">
                             <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $recipe->name }}</h5>
                                 <p class="card-text">{{ $recipe->description }}</p>
+                            </div>
+                            <div class="flex row ml-3 mb-2">
+                                @foreach($recipe->tags as $tag)
+                                    <span class="badge badge-info text-white mr-1">{{$tag->name}}</span>
+                                @endforeach
                             </div>
                         </div>
                     </div>

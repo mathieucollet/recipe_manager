@@ -26,6 +26,19 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="ingredients">Ingrédients :</label>
+                            <select class="selectpicker form-control" multiple data-live-search="true" data-dropup-auto="false"
+                                    id="ingredients" name="ingredients[]">
+                                @foreach ($ingredients as $ingredient)
+                                    <option value="{{ $ingredient->id}}">{{ $ingredient->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('ingredients')
+                            <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="inscrutions">Instructions : </label>
                             <textarea class="form-control" id="inscrutions" name="instructions" aria-describedby="instructionHelp"
                                       placeholder=""
@@ -45,6 +58,19 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="tags">Tags :</label>
+                            <select class="selectpicker form-control" multiple data-live-search="true" data-dropup-auto="false" id="tags"
+                                    name="tags[]">
+                                @foreach ($tags as $tag)
+                                    <option value="{{ $tag->id}}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('tags')
+                            <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label for="difficulty">Difficulté : </label><br>
                             <input type="range" min="1" max="5" value="1" class="slider" id="difficulty" name="difficulty">
                             <p><span id="in_slider_value"></span></p>
@@ -57,20 +83,6 @@
 
                         <button type="submit" class="btn btn-primary">Créer ma nouvelle recette !</button>
 
-                    </div>
-                </div>
-
-                <div class="col-2">
-                    <h3>Sélectionnez les ingrédients nécessaires</h3>
-                    <div class="form-group">
-                        <select class="selectpicker form-control" multiple data-live-search="true" name="ingredients[]">
-                            @foreach ($ingredients as $ingredient)
-                                <option value="{{ $ingredient->id}}">{{ $ingredient->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('ingredients')
-                        <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
-                        @enderror
                     </div>
                 </div>
 
