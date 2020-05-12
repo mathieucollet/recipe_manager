@@ -106,7 +106,7 @@ class IngredientController extends Controller
      *
      * @param  \App\Ingredient  $ingredient
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy(Ingredient $ingredient): RedirectResponse
