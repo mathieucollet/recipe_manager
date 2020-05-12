@@ -31,5 +31,13 @@ Route::group(
 
         // Picture
         Route::delete('/picture/{picture}', 'PictureController@destroy')->name('picture.destroy');
+
+        Route::group(
+            ['middleware' => 'admin'],
+            function () {
+                // Tags
+                Route::resource('/admin/tag', 'Admin\TagController');
+            }
+        );
     }
 );
