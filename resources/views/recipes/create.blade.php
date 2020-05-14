@@ -81,6 +81,11 @@
                             <input type="file" id="pictures" name="pictures[]" accept="image/*" multiple>
                         </div>
 
+                        <div class="form-check mb-4">
+                            <input class="form-check-input"  type="checkbox" id="shared" name="shared" for="shared" value="1">
+                            <label class="form-check-label">Partager ma recette</label>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Créer ma nouvelle recette !</button>
 
                     </div>
