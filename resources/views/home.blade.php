@@ -2,23 +2,6 @@
 
 @section('content')
     <div class="container-fluid">
-    <!-- <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-{{ session('status') }}
-                </div>
-@endif
-
-            You are logged in!
-        </div>
-    </div>
-</div>
-</div> -->
         <div class="col-md-9 ml-sm-auto col-lg-10">
             <form class="form-inline my-2 mb-4" action="/home" method="post">
                 @csrf
@@ -33,7 +16,7 @@
                         <div class="card">
                             <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $recipe->name }}</h5>
+                                <a href="/recipe/{{$recipe->id}}" style="text-decoration: none;"><h5 class="card-title">{{ $recipe->name }}</h5></a>
                                 <p class="card-text">{{ $recipe->description }}</p>
                             </div>
                             <div class="flex row ml-3 mb-2">
