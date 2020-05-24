@@ -13,10 +13,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::post('/home', 'HomeController@index')->name('home.search');
+Route::post('/', 'HomeController@index')->name('home.search');
+
+Route::group(
+    ['middleware' => 'auth'],
+    function () {
+        // Ingredients
+        Route::resource('ingredient', 'IngredientController');
+
+        // Recipes
+        Route::get('/recipe/marks', 'RecipeController@marks')->name('recipe.marks');
+        Route::get('/recipe/{recipe}/mark', 'RecipeController@marking')->name('recipe.marking');
+        Route::resource('recipe', 'RecipeController');
+
+        // Picture
+        Route::delete('/picture/{picture}', 'PictureController@destroy')->name('picture.destroy');
+
+        Route::group(
+            ['middleware' => 'admin'],
+            function () {
+                // Tags
+                Route::resource('/admin/tag', 'Admin\TagController');
+            }
+        );
+    }
+);
