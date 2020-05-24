@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
  * @property mixed user
  * @property mixed user_id
  * @method static shared()
+ * @method static whereLike(string[] $array, $get)
  */
 class Recipe extends Model
 {

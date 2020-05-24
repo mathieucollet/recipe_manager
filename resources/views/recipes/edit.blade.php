@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-md-9 ml-sm-auto col-lg-10">
-        <div class="col-10">
-            <div class="col-md-9 ml-sm-auto col-lg-10">
-                <form action="{{$recipe->path()}}" method="post">
-                    @method('PATCH')
-                    @csrf
-                    <div class="form-group">
+    <div class="row">
+        <div class="col-md-9 ml-sm-auto col-lg-10">
+            <div class="col-10">
+                <div class="col-md-9 ml-sm-auto col-lg-10">
+                    <form action="{{$recipe->path()}}" method="post">
+                        @method('PATCH')
+                        @csrf
+                        <div class="form-group">
                             <label for="name">Nom : </label>
                             <input type="text" class="form-control" id="name" name="name" value="{{$recipe->name}}">
                             @error('name')
@@ -28,7 +28,11 @@
                             <select class="selectpicker form-control" multiple data-live-search="true" data-dropup-auto="false"
                                     id="ingredients" name="ingredients[]">
                                 @foreach ($ingredients as $ingredient)
-                                    <option value="{{ $ingredient->id}}">{{ $ingredient->name }}</option>
+                                    <option value="{{ $ingredient->id}}"
+                                            @if (in_array($ingredient->id, old('ingredients', $recipe->ingredients->pluck('id')->toArray())))
+                                            selected
+                                            @endif
+                                    >{{ $ingredient->name }}</option>
                                 @endforeach
                             </select>
                             @error('ingredients')
@@ -39,8 +43,8 @@
                         <div class="form-group">
                             <label for="inscrutions">Instructions : </label>
                             <textarea class="form-control" id="inscrutions" name="instructions" aria-describedby="instructionHelp"
-                                placeholder=""
-                                rows="3">{{$recipe->instructions}}</textarea>
+                                      placeholder=""
+                                      rows="3">{{$recipe->instructions}}</textarea>
                             @error('instructions')
                             <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
                             @enderror
@@ -60,7 +64,11 @@
                             <select class="selectpicker form-control" multiple data-live-search="true" data-dropup-auto="false" id="tags"
                                     name="tags[]">
                                 @foreach ($tags as $tag)
-                                    <option value="{{ $tag->id}}">{{ $tag->name }}</option>
+                                    <option value="{{ $tag->id}}"
+                                            @if (in_array($tag->id, old('tags', $recipe->tags->pluck('id')->toArray())))
+                                            selected
+                                            @endif
+                                    >{{ $tag->name }}</option>
                                 @endforeach
                             </select>
                             @error('tags')
@@ -70,7 +78,8 @@
 
                         <div class="form-group">
                             <label for="difficulty">Difficulté : </label><br>
-                            <input type="range" min="1" max="5" value="{{$recipe->difficulty}}" class="slider" id="difficulty" name="difficulty">
+                            <input type="range" min="1" max="5" value="{{$recipe->difficulty}}" class="slider" id="difficulty"
+                                   name="difficulty">
                             <p><span id="in_slider_value"></span></p>
                         </div>
 
@@ -80,14 +89,15 @@
                         </div>
 
                         <div class="form-check mb-4">
-                            <input class="form-check-input"  type="checkbox" id="shared" name="shared" for="shared" value="{{$recipe->shared}}">
+                            <input class="form-check-input" type="checkbox" id="shared" name="shared" for="shared"
+                                   value="{{$recipe->shared}}">
                             <label class="form-check-label">Partager ma recette</label>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Modifier ma recette</button>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

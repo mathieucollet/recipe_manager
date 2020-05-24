@@ -97,7 +97,7 @@ class RecipeController extends Controller
 
         $ingredients = Auth::user()->ingredients;
         $tags = Tag::orderBy('name', 'asc')->get();
-
+        
         return view('recipes.edit', compact('recipe', 'ingredients', 'tags'));
     }
 
