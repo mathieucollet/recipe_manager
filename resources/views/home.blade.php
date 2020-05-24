@@ -14,9 +14,11 @@
                 @foreach ($recipes as $recipe)
                     <div class="col-sm-3 mb-3">
                         <div class="card">
-                            <img src="https://picsum.photos/400/200" class="card-img-top" alt="...">
+                            <img src="{{ asset($recipe->pictures[0]->img_path) }}" class="card-img-top" alt="recipe picture"
+                                 style="height:220px;object-fit:cover;">
                             <div class="card-body">
-                                <a href="/recipe/{{$recipe->id}}" style="text-decoration: none;"><h5 class="card-title">{{ $recipe->name }}</h5></a>
+                                <a href="/recipe/{{$recipe->id}}" style="text-decoration: none;"><h5
+                                            class="card-title">{{ $recipe->name }}</h5></a>
                                 <p class="card-text">{{ $recipe->description }}</p>
                             </div>
                             <div class="flex row ml-3 mb-2">
