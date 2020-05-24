@@ -42,8 +42,12 @@
                                 </form>
                             </a>
                         @endif
-                        <div class="like-btn-svg"><input class="form-check-input" type="checkbox" id="marked" name="marked" for="marked"
-                                                         value="{{$recipe->marked ? '1' : '0'}}" style="display: none;"></div>
+                        @if (auth()->user() && $recipe->user_id !== auth()->user()->id)
+                            <div class="like-btn-svg">
+                                <input class="form-check-input" type="checkbox" id="marked" name="marked" for="marked"
+                                       value="{{$recipe->marked ? '1' : '0'}}" style="display: none;">
+                            </div>
+                        @endif
                     </div>
                     <div class="card-footer text-muted">
                         @foreach($recipe->tags as $tag)
