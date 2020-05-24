@@ -7,6 +7,7 @@ use App\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class RecipeController extends Controller
 {
@@ -97,7 +98,7 @@ class RecipeController extends Controller
 
         $ingredients = Auth::user()->ingredients;
         $tags = Tag::orderBy('name', 'asc')->get();
-        
+
         return view('recipes.edit', compact('recipe', 'ingredients', 'tags'));
     }
 
@@ -115,14 +116,20 @@ class RecipeController extends Controller
         $this->authorize('update', $recipe);
 
         $recipe->update($this->validatedRequest(false));
-
+        
         if ($recipe) {
             $recipe->ingredients()->sync($this->validatedIngredients()['ingredients']);
             $recipe->tags()->sync($this->validatedTags()['tags']);
-            $pictures = $this->validatedPictures()['pictures'];
-            foreach ($pictures as $picture) {
-                $path = $picture->store('recipe_pictures');
-                $recipe->pictures()->create(['img_path' => $path]);
+            if ($recipe->pictures()->count() <= 5) {
+                $pictures = $this->validatedPictures(false);
+                if ($pictures) {
+                    foreach ($pictures['pictures'] as $picture) {
+                        $path = $picture->store('recipe_pictures');
+                        $recipe->pictures()->create(['img_path' => $path]);
+                    }
+                }
+            } else {
+                throw ValidationException::withMessages(['pictures' => 'No more than 5 images per recipe']);
             }
         }
 
@@ -215,13 +222,15 @@ class RecipeController extends Controller
     }
 
     /**
+     * @param  bool  $create
+     *
      * @return array
      */
-    public function validatedPictures(): array
+    public function validatedPictures(bool $create = true): array
     {
         return request()->validate(
             [
-                'pictures'   => 'required|array',
+                'pictures'   => ($create ? 'required|' : '') . 'array',
                 'pictures.*' => 'image',
             ]
         );
