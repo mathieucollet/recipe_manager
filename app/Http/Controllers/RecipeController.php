@@ -7,6 +7,7 @@ use App\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 
 class RecipeController extends Controller
@@ -74,13 +75,13 @@ class RecipeController extends Controller
      *
      * @param  \App\Recipe  $recipe
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function show(Recipe $recipe): View
+    public function show(Recipe $recipe)
     {
-        $this->authorize('view', $recipe);
-
+        if (!$recipe->isShared()) {
+            return Redirect::back();
+        }
         return view('recipes.show', compact('recipe'));
     }
 
@@ -116,7 +117,7 @@ class RecipeController extends Controller
         $this->authorize('update', $recipe);
 
         $recipe->update($this->validatedRequest(false));
-        
+
         if ($recipe) {
             $recipe->ingredients()->sync($this->validatedIngredients()['ingredients']);
             $recipe->tags()->sync($this->validatedTags()['tags']);
