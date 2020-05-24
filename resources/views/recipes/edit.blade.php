@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="pictures">Photos : <span class="text-muted">Pas plus de 5 images</label><br>
+                            <label for="pictures">Photos : <span class="text-muted">Pas plus de 5 images</span></label><br>
                             <input type="file" id="pictures" name="pictures[]" accept="image/*" multiple value="{{$recipe->img_path}}">
                             @error('pictures')
                             <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
@@ -98,7 +98,7 @@
                         <div class="form-check mb-4">
                             <input class="form-check-input" type="checkbox" id="shared" name="shared" for="shared"
                                    value="{{$recipe->shared}}">
-                            <label class="form-check-label">Partager ma recette</span></label>
+                            <label class="form-check-label">Partager ma recette</label>
                         </div>
 
                         <a href="{{route('recipe.index')}}" class="btn btn-outline-primary">Retour</a>
