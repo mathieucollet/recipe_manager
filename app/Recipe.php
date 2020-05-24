@@ -59,7 +59,7 @@ class Recipe extends Model
      */
     public function getMarkedAttribute()
     {
-        return Auth::user()->marks()->where('recipe_id', $this->id)->exists();
+        return Auth::user() ? Auth::user()->marks()->where('recipe_id', $this->id)->exists() : null;
     }
 
     /**

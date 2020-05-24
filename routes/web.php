@@ -20,6 +20,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@index')->name('home.search');
 Route::post('/', 'HomeController@index')->name('home.search');
 
+Route::get('/recipe/{recipe}', 'RecipeController@show')->name('recipe.show');
+
 Route::group(
     ['middleware' => 'auth'],
     function () {
@@ -29,7 +31,7 @@ Route::group(
         // Recipes
         Route::get('/recipe/marks', 'RecipeController@marks')->name('recipe.marks');
         Route::get('/recipe/{recipe}/mark', 'RecipeController@marking')->name('recipe.marking');
-        Route::resource('recipe', 'RecipeController');
+        Route::resource('recipe', 'RecipeController')->except('show');
 
         // Picture
         Route::delete('/picture/{picture}', 'PictureController@destroy')->name('picture.destroy');

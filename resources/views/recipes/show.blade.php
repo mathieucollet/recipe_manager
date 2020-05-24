@@ -10,7 +10,7 @@
                     <div class="card-header">
                         @foreach ($recipe->pictures as $picture)
                             <img src="{{ asset($picture->img_path) }}" alt="" style="width:400px; height:200px"><br>
-                            @if ($recipe->user_id === auth()->user()->id)
+                            @if (auth()->user() && $recipe->user_id === auth()->user()->id)
                                 <form action="{{ route('picture.destroy', $picture->id) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
@@ -33,7 +33,7 @@
                         </p>
                         <p class="card-text"><span class="font-weight-bold">Temps de préparation : </span>{{$recipe->minutes}}</p>
                         <p class="card-text"><span class="font-weight-bold">Difficulté : </span>{{$recipe->difficulty}}</p>
-                        @if ($recipe->user_id === auth()->user()->id)
+                        @if (auth()->user() && $recipe->user_id === auth()->user()->id)
                             <a href="#" class="btn btn-primary">
                                 <form action="/recipe/{{ $recipe->id }}/edit">
                                     <div type="submit" style="-webkit-appearance: initial;" onClick="javascript:this.parentNode.submit();">

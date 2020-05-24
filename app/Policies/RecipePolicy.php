@@ -32,11 +32,7 @@ class RecipePolicy
      */
     public function view(User $user, Recipe $recipe)
     {
-        $right = false;
-        if ($user->is($recipe->user) || $recipe->isShared()) {
-            $right = true;
-        }
-        return $right;
+        return true;
     }
 
     /**
