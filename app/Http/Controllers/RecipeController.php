@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class RecipeController extends Controller
@@ -62,7 +63,7 @@ class RecipeController extends Controller
             $recipe->tags()->sync($this->validatedTags()['tags']);
             $pictures = $this->validatedPictures()['pictures'];
             foreach ($pictures as $picture) {
-                $path = $picture->store('recipe_pictures');
+                $path = Storage::disk('s3')->put('images', $picture);
                 $recipe->pictures()->create(['img_path' => $path]);
             }
         }
@@ -106,11 +107,11 @@ class RecipeController extends Controller
     /**
      * Update the specified recipe in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Recipe               $recipe
+     * @param  \App\Recipe  $recipe
      *
-     * @return \Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Recipe $recipe): RedirectResponse
     {
@@ -125,7 +126,7 @@ class RecipeController extends Controller
                 $pictures = $this->validatedPictures(false);
                 if ($pictures) {
                     foreach ($pictures['pictures'] as $picture) {
-                        $path = $picture->store('recipe_pictures');
+                        $path = Storage::disk('s3')->put('images', $picture);
                         $recipe->pictures()->create(['img_path' => $path]);
                     }
                 }
@@ -159,16 +160,14 @@ class RecipeController extends Controller
      *
      * @param  \App\Recipe  $recipe
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return void
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function marking(Recipe $recipe): RedirectResponse
+    public function marking(Recipe $recipe): void
     {
         $this->authorize('marking', $recipe);
 
         Auth::user()->marks()->toggle($recipe->id);
-
-        return redirect()->back();
     }
 
     /**

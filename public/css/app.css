@@ -11395,3 +11395,85 @@ select.selectpicker {
   border: 1px solid #ced4da;
 }
 
+.like-btn-svg {
+  width: 80px;
+  height: 100px;
+  position: absolute;
+  right: 0;
+  bottom: -15px;
+  transform: translate(-50%, -50%);
+  background: url(https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png) no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+}
+
+.filter-option-inner-inner {
+  max-width: 1px;
+}
+
+.like-btn-svg.home {
+  transform: unset;
+}
+
+.like-btn-svg.liked {
+  background-position: -2800px 0;
+}
+
+.like-btn-svg.animate {
+  transition: background 1s steps(28);
+  -webkit-animation: fave-like-btn-svg 1s steps(28);
+          animation: fave-like-btn-svg 1s steps(28);
+  background-position: -2800px 0;
+}
+
+.like-btn-svg.animate-back {
+  transition: background 1s steps(28);
+  -webkit-animation: fave-unlike-btn-svg 1s steps(28);
+          animation: fave-unlike-btn-svg 1s steps(28);
+  background-position: 0 0;
+}
+
+@-webkit-keyframes fave-like-btn-svg {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -2800px 0;
+  }
+}
+
+@keyframes fave-like-btn-svg {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -2800px 0;
+  }
+}
+
+@-webkit-keyframes fave-unlike-btn-svg {
+  0% {
+    background-position: -2800px 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes fave-unlike-btn-svg {
+  0% {
+    background-position: -2800px 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.instructions li {
+  margin-bottom: 15px;
+}
+

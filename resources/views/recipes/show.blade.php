@@ -4,35 +4,60 @@
 
     <div class="row">
 
-        <div class="col-10">
+        <div class="col-10 mx-auto">
             <div class="col-md-9 ml-sm-auto col-lg-10">
                 <div class="card text-center">
-                    <div class="card-header">
-                        @foreach ($recipe->pictures as $picture)
-                            <img src="{{ asset($picture->img_path) }}" alt="" style="width:400px; height:200px"><br>
-                            @if (auth()->user() && $recipe->user_id === auth()->user()->id)
-                                <form action="{{ route('picture.destroy', $picture->id) }}" method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger mt-2">Delete Picture</button>
-                                </form>
-                            @endif
-                        @endforeach
-                    </div>
+                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($recipe->pictures->first()->img_path) }}" alt=""
+                         class="card-img-top" style="height: 300px; object-fit: cover;">
                     <div class="card-body">
-                        <h5 class="card-title">{{$recipe->name}}</h5>
+                        <div class="row" style="margin:-20px -20px 0 -20px;">
+                            @foreach ($recipe->pictures->splice(1) as $picture)
+                                <div class="col-12 col-md-3 p-0 mx-auto position-relative" style="height:100px">
+                                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($picture->img_path) }}" alt=""
+                                         class="w-100 h-100" style="object-fit:cover;">
+                                    @if (auth()->user() && $recipe->user_id === auth()->user()->id)
+                                        <form action="{{ route('picture.destroy', $picture->id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <input type="submit"
+                                                   onclick="return confirm('Êtes-vous sur de vouloir supprimer cette image ?')"
+                                                   class="btn btn-danger rounded-circle mt-2 position-absolute"
+                                                   style="bottom:5px; right:5px;" value="✗"/>
+                                        </form>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                        <h3 class="card-title mt-4 font-weight-bold">{{$recipe->name}}</h3>
                         <p class="card-text"><span class="font-weight-bold">Description : </span>{{$recipe->description}}</p>
-                        <p class="card-text"><span class="font-weight-bold">Ingrédients : </span></p>
-                        @foreach ($recipe->ingredients as $ingredient)
-                            <ul>
-                                <li>{{ $ingredient->name }}</li>
-                            </ul>
-                        @endforeach
-                        <p class="card-text"><span
-                                    class="font-weight-bold">Instructions {{$recipe->marked ? 'ok': 'notok'}} : </span>{!! $recipe->instructions !!}
+                        <p class="card-text"><span class="font-weight-bold">Temps de préparation : </span>{{$recipe->minutes}} minutes</p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">Difficulté : </span>
+                            @for ($i = 0; $i < $recipe->difficulty; $i++)
+                                <span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>
+                            @endfor
+                            @for ($i = 5; $i > $recipe->difficulty; $i--)
+                                <span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>
+                            @endfor
                         </p>
-                        <p class="card-text"><span class="font-weight-bold">Temps de préparation : </span>{{$recipe->minutes}}</p>
-                        <p class="card-text"><span class="font-weight-bold">Difficulté : </span>{{$recipe->difficulty}}</p>
+                        <div class="row mt-4">
+                            <div class="col-12 col-md-3">
+                                <h5 class="card-text font-weight-bold">Ingrédients :</h5>
+                                <ul class="list-group">
+                                    @foreach ($recipe->ingredients as $ingredient)
+                                        <li class="list-group-item">{{ $ingredient->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <h5 class="card-text font-weight-bold">
+                                    Instructions :
+                                </h5>
+                                <div class="instructions">
+                                    {!! $recipe->instructions !!}
+                                </div>
+                            </div>
+                        </div>
                         @if (auth()->user() && $recipe->user_id === auth()->user()->id)
                             <a href="#" class="btn btn-primary">
                                 <form action="/recipe/{{ $recipe->id }}/edit">
@@ -42,8 +67,10 @@
                                 </form>
                             </a>
                         @endif
-                        <div class="like-btn-svg"><input class="form-check-input" type="checkbox" id="marked" name="marked" for="marked"
-                                                         value="{{$recipe->marked ? '1' : '0'}}" style="display: none;"></div>
+                        @if (auth()->user() && $recipe->user_id !== auth()->user()->id)
+                            <div class="like-btn-svg {{$recipe->marked ? 'liked' : ''}}" data-id="{{$recipe->id}}">
+                            </div>
+                        @endif
                     </div>
                     <div class="card-footer text-muted">
                         @foreach($recipe->tags as $tag)
@@ -54,41 +81,9 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
 
-    <style type="text/css">
-        .like-btn-svg {
-            width: 80px;
-            height: 100px;
-            position: absolute;
-            right: 0;
-            bottom: -15px; /* temp value */
-            transform: translate(-50%, -50%);
-            background: url(https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png) no-repeat;
-            background-position: 0 0;
-            cursor: pointer;
-        }
+    {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>--}}
 
-        .like-btn-svg.animate {
-            transition: background 1s steps(28);
-            animation: fave-like-btn-svg 1s steps(28);
-            background-position: -2800px 0;
-        }
 
-        @keyframes fave-like-btn-svg {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: -2800px 0;
-            }
-        }
-    </style>
-
-    <script>
-        $('.like-btn-svg').on('click', function () {
-            $(this).toggleClass('animate');
-        });
-    </script>
 
 @endsection

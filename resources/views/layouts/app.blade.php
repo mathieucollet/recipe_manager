@@ -9,10 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -23,11 +19,22 @@
 </head>
 <body>
 @include('includes.topnav')
-@include('includes.leftnav')
 <div class="container-fluid">
-    <main class="py-4 mt-5">
-        @yield('content')
-    </main>
+    <div class="row py-4">
+        <div class="col-auto d-none d-lg-block">
+            @include('includes.leftnav')
+        </div>
+        <div class="col">
+            @yield('content')
+        </div>
+    </div>
 </div>
+<div class="container-fluid">
+
+</div>
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+@yield('additional-scripts')
 </body>
 </html>

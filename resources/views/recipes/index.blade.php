@@ -1,33 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-md-9 ml-sm-auto col-lg-10">
-        <form class="form-inline my-2 mb-4" action="/home" method="post">
-            @csrf
-            <input class="form-control mr-sm-2" type="search" placeholder="Rechercher une recette" aria-label="Search" name="search">
-            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Rechercher</button>
-            <a href="/home" class="btn btn-outline-danger ml-4">raz</a>
-        </form>
-
+    <div class="col-12">
         <div class="row">
             @foreach ($recipes as $recipe)
-                <div class="col-sm-3 mb-3">
-                    <div class="card">
-                        <img src="{{ asset($recipe->pictures[0]->img_path) }}" class="card-img-top" alt="recipe picture"
+                <div class="col-lg-4 mb-3">
+                    <div class="card position-relative">
+                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($recipe->pictures->first()->img_path) }}"
+                             class="card-img-top"
+                             alt="recipe picture"
                              style="height:220px;object-fit:cover;">
+                        <div class="like-btn-svg {{$recipe->marked ? 'liked' : ''}} home" title="Ajouter aux favoris"
+                             data-id="{{$recipe->id}}">
+                        </div>
                         <div class="card-body">
                             <form action="/recipe/{{ $recipe->id }}/edit">
-                                <div type="submit" class="float-right h3" style="-webkit-appearance: initial;"
+                                <div type="submit" title="Modifier la recette" class="float-right h3" style="-webkit-appearance: initial;"
                                      onClick="javascript:this.parentNode.submit();">🔧
                                 </div>
                             </form>
-                            <h5 class="card-title"><a href="/recipe/{{ $recipe->id }}"
-                                                      style="text-decoration: none;">{{ $recipe->name }}</a></h5>
+                            <h5 class="card-title">
+                                <a href="/recipe/{{ $recipe->id }}" style="text-decoration: none;">
+                                    {{ $recipe->name }}
+                                </a>
+                            </h5>
                             <p class="card-text">{{ $recipe->description }}</p>
                         </div>
-                        <div class="flex row ml-3 mb-2">
+                        <div class="col-10 mb-4 d-flex flex-wrap">
                             @foreach($recipe->tags as $tag)
-                                <span class="badge badge-info text-white mr-1">{{$tag->name}}</span>
+                                <span class="badge badge-info text-white mr-1 mb-1">{{$tag->name}}</span>
                             @endforeach
                         </div>
                     </div>

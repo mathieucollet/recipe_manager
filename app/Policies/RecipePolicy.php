@@ -75,7 +75,7 @@ class RecipePolicy
 
     public function marking(User $user, Recipe $recipe)
     {
-        return $user->isNot($recipe->user);
+        return true;
     }
 
 
