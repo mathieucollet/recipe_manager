@@ -80,7 +80,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        if (!$recipe->isShared()) {
+        if (!$recipe->isShared() && Auth::user()->id !== $recipe->user_id) {
             return Redirect::back();
         }
         return view('recipes.show', compact('recipe'));
@@ -201,7 +201,7 @@ class RecipeController extends Controller
                 'instructions' => ($create ? 'required|' : '') . 'string',
                 'minutes'      => ($create ? 'required|' : '') . 'integer',
                 'difficulty'   => ($create ? 'required|' : '') . 'integer',
-                'shared'       => 'boolean',
+                'shared'       => 'required|boolean',
             ]
         );
     }

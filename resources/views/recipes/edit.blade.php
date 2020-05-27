@@ -52,7 +52,7 @@
             </div>
 
             <div class="form-group">
-                <label for="minutes">Temps : </label>
+                <label for="minutes">Temps : <span class="text-muted">en minutes</span></label>
                 <input type="number" class="form-control" id="minutes" name="minutes" value="{{$recipe->minutes}}">
                 @error('minutes')
                 <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
@@ -95,8 +95,9 @@
             </div>
 
             <div class="form-check mb-4">
+                <input type="hidden" name="shared" value="0">
                 <input class="form-check-input" type="checkbox" id="shared" name="shared" for="shared"
-                       value="{{$recipe->shared}}">
+                       {{$recipe->shared ? 'checked' : ''}} value="1">
                 <label class="form-check-label">Partager ma recette</label>
             </div>
 
