@@ -6,10 +6,12 @@
             @foreach ($recipes as $recipe)
                 <div class="col-lg-4 mb-3">
                     <div class="card position-relative">
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($recipe->pictures->first()->img_path) }}"
-                             class="card-img-top"
-                             alt="recipe picture"
-                             style="height:220px;object-fit:cover;">
+                        <a href="/recipe/{{$recipe->id}}" style="text-decoration: none;">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('s3')->url($recipe->pictures->first()->img_path) }}"
+                                 class="card-img-top"
+                                 alt="recipe picture"
+                                 style="height:220px;object-fit:cover;">
+                        </a>
                         <div class="like-btn-svg {{$recipe->marked ? 'liked' : ''}} home" title="Ajouter aux favoris"
                              data-id="{{$recipe->id}}">
                         </div>

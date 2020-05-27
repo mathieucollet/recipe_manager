@@ -18,9 +18,11 @@
                                  class="card-img-top" alt="recipe picture"
                                  style="height:220px;object-fit:cover;">
                         </a>
-                        <div class="like-btn-svg {{$recipe->marked ? 'liked' : ''}} home" title="Ajouter aux favoris"
-                             data-id="{{$recipe->id}}">
-                        </div>
+                        @if (auth()->user())
+                            <div class="like-btn-svg {{$recipe->marked ? 'liked' : ''}} home" title="Ajouter aux favoris"
+                                 data-id="{{$recipe->id}}">
+                            </div>
+                        @endif
                         <div class="card-body">
                             <a href="/recipe/{{$recipe->id}}" style="text-decoration: none;">
                                 <h5 class="card-title">

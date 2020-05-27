@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 <label for="inscrutions">Instructions : </label>
-                <textarea class="form-control" id="inscrutions" name="instructions" aria-describedby="instructionHelp"
+                <textarea class="form-control" id="instructions" name="instructions" aria-describedby="instructionHelp"
                           placeholder=""
                           rows="3"></textarea>
                 @error('instructions')
@@ -147,6 +147,17 @@
                 default:
                     break;
             }
+        });
+
+        $(document).ready(function () {
+            $('#instructions').summernote({
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                ],
+            });
         });
 
     </script>
