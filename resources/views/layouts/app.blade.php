@@ -16,6 +16,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/summernote-bs4.min.css') }}" rel="stylesheet">
 </head>
 <body>
 @include('includes.topnav')
@@ -34,6 +35,7 @@
 </div>
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/summernote-bs4.min.js') }}"></script>
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 @yield('additional-scripts')
 </body>

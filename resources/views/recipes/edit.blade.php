@@ -42,7 +42,7 @@
 
             <div class="form-group">
                 <label for="inscrutions">Instructions : </label>
-                <textarea class="form-control" id="inscrutions" name="instructions" aria-describedby="instructionHelp"
+                <textarea class="form-control" id="instructions" name="instructions" aria-describedby="instructionHelp"
                           placeholder=""
                           rows="3">{{$recipe->instructions}}</textarea>
                 @error('instructions')
@@ -78,12 +78,14 @@
 
             <div class="form-group">
                 <label for="difficulty">Difficulté : </label><br>
-                <input type="range" min="1" max="5" value="{{$recipe->difficulty}}" class="slider" id="difficulty"
-                       name="difficulty">
-                <p><span id="in_slider_value"></span></p>
-                @error('difficulty')
-                <small id="instructionHelp" class="form-text text-danger">{{$message}}</small>
-                @enderror
+                <input type="range" min="1" max="5" value="{{$recipe->difficulty}}" class="slider w-100" id="difficulty" name="difficulty">
+                <div id="in_slider_value" class="d-flex justify-content-between">
+                    <span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>
+                    <span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>
+                    <span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>
+                    <span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>
+                    <span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>
+                </div>
             </div>
 
             <div class="form-group">
@@ -108,4 +110,64 @@
         </form>
     </div>
 
+@endsection
+@section('additional-scripts')
+    <script>
+        const slider = $("#difficulty");
+        const output = $("#in_slider_value");
+
+        slider.on('input', function () {
+            switch ($(this).val()) {
+                case '1':
+                    output.html('<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>');
+                    break;
+                case '2':
+                    output.html('<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>');
+                    break;
+                case '3':
+                    output.html('<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>');
+                    break;
+                case '4':
+                    output.html('<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: lightgray">&#x2605;</span>');
+                    break;
+                case '5':
+                    output.html('<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>\n' +
+                        '<span style="font-size: 1.5rem; color: #FDD630">&#x2605;</span>');
+                    break;
+                default:
+                    break;
+            }
+        });
+        slider.trigger('input');
+
+        $(document).ready(function () {
+            $('#instructions').summernote({
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                ],
+            });
+        });
+    </script>
 @endsection
