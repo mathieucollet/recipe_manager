@@ -13,21 +13,47 @@ class PictureSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('pictures')->insert(
+        $hambPictures = collect(
             [
-                'recipe_id'  => 1,
-                'img_path'   => 'https://assets.afcdn.com/recipe/20130627/42230_w600.jpg',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'hamb.jpg',
+                '4Qa3v55jJr7MNDIIT9ww1aErl9cndP7Z71Bm1Hyk.jpeg',
+                'aztUo2xgNfsRphZin9kJKxwGigeAuWQWhZSyYMGC.jpeg',
+                'ftfYnQ9CTOmVsVh6NlZIB91kQXddwoHH6kRwZF4b.jpeg',
+                'gWAW03FYhuHgH7f0KfXG3IKX666pwSdAf5yrP5cP.jpeg',
             ]
         );
-        DB::table('pictures')->insert(
+        $saladPictures = collect(
             [
-                'recipe_id'  => 2,
-                'img_path'   => 'https://assets.afcdn.com/recipe/20190704/94709_w600cxt0cyt0cxb6000cyb4000.jpg',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'salade.jpg',
+                'oKTJMSSvHb148xr4WydD9yncXf3cZomtqpYa7IK5.jpeg',
+                'ApMWqVlhSTcpVhWPckspU65k7J6kwtPIUGpBquLC.jpeg',
+                'aOBcAMJjxhTEzIW6QMN5y5THXgIu7kHCqjZeomP2.jpeg',
+                'Q4eOEjKZmTRQj0KOeIRCIlL3PabsHKDB1KZIGEJK.jpeg',
             ]
+        );
+        $hambPictures->each(
+            function ($picture, $key) {
+                DB::table('pictures')->insert(
+                    [
+                        'recipe_id'  => 1,
+                        'img_path'   => 'images/' . $picture,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ]
+                );
+            }
+        );
+        $saladPictures->each(
+            function ($picture, $key) {
+                DB::table('pictures')->insert(
+                    [
+                        'recipe_id'  => 2,
+                        'img_path'   => 'images/' . $picture,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ]
+                );
+            }
         );
     }
 }

@@ -20,7 +20,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@index')->name('home.search');
 Route::post('/', 'HomeController@index')->name('home.search');
 
-Route::get('/recipe/{recipe}', 'RecipeController@show')->name('recipe.show');
 
 Route::group(
     ['middleware' => 'auth'],
@@ -45,3 +44,5 @@ Route::group(
         );
     }
 );
+
+Route::get('/recipe/{recipe}', 'RecipeController@show')->name('recipe.show');

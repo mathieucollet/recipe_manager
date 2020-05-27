@@ -21,7 +21,7 @@ class PictureController extends Controller
     {
         $this->authorize('delete', $picture);
 
-        $isImageDeleted = Storage::delete($picture->img_path);
+        $isImageDeleted = Storage::disk('s3')->delete($picture->img_path);
         if ($isImageDeleted) {
             $picture->delete();
         }
