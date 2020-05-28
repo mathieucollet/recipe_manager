@@ -4,7 +4,8 @@
     <div class="col-12">
         <form class="form-inline my-2 mb-4" action="/home" method="post">
             @csrf
-            <input class="form-control mr-sm-2" type="search" placeholder="Rechercher une recette" aria-label="Search" name="search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Rechercher une recette" aria-label="Search" name="search"
+                   value="{{$searchable}}">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Rechercher</button>
             <a href="/home" class="btn btn-outline-danger ml-4">raz</a>
         </form>

@@ -13,14 +13,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (request()->get('search')) {
-            $recipes = Recipe::whereLike(['name', 'description', 'tags.name'], request()->get('search'))->get();
+        $searchable = request()->get('search') ?? null;
+        if ($searchable) {
+            $recipes = Recipe::whereLike(['name', 'description', 'tags.name'], $searchable)->get();
         }
         if (!request()->get('search') || !$recipes) {
             $recipes = Recipe::shared()->get();
         }
 
 
-        return view('home', compact('recipes'));
+        return view('home', compact('recipes', 'searchable'));
     }
 }
