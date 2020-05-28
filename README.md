@@ -1,34 +1,34 @@
 # Recipe Manager
 
-Projet scolaire visant à mettre en place une gestionnaire de recette, avec une base de donnée.
+School project aiming to set up a recipe manager, with a database.
 
-Le point principal du projet étant d'utiliser un ORM pour exécuter les requêtes SQL.
+The main point of the project is to use an ORM to execute SQL queries.
 
-## Équipe
-Projet réalisé par Cédric B, Mathieu C et Jérémy L.
+## Team
+Project carried out by Cédric B, Mathieu C and Jérémy L.
 
-## Utilisation
-Vous pouvez créer un utilisateur et utiliser la plateforme comme bon vous semble.
+## Usage
+You can create a user and use the platform as you wish.
 
-Deux utilisateurs existent par défaut :
-- Login : user@user.user - Mdp : useruser
-- Admin : admin@admin.admin - Mdp : adminadmin
+Two users exist by default:
+- Login : user@user.user - Password : useruser
+- Login : admin@admin.admin - Password : adminadmin
 
 ## Stack
-- Framework PHP Laravel 7
-- ORM de Laravel : Eloquent
-- BDD MySql
-- Framework CSS Bootstrap 4
-- Framework JS JQuery
-- Icon Library Material Icons
-- WYSIWYG Summernote
+- Laravel 7 PHP Framework
+- Eloquent Laravel's ORM
+- MySQL DB
+- Bootstrap 4 CSS Framework
+- JQuery JS Framework
+- Material Icons Library
+- Summernote WYSIWYG
 
-## Réalisations
-- Voir les recettes partagées sans être connecté
-- Créer un compte utilisateur
-- Manager une liste d'ingrédient (Create, Read, Update, Delete) propre à l'utilisateur connecté, utilisables à la création d'une recette.
-- Manager une liste de recettes (Create, Read, Update, Delete) propre à l'utilisateur.
-- En tant qu'administrateur, manager une liste de tags (Create, Read, Update, Delete), utilisables à la création d'une recette.
-- Choisir de partager ou non une recette sur la plateforme.
-- Possibilité de "liker" des recettes (même les siennes), et de les retrouver dans une page dédiée.
-- Système de recherche de recette basée sur le nom, la description et les tags.
+## Achievements
+- View shared recipes without being logged in
+- Create a user account
+- Manage an ingredient list (Create, Read, Update, Delete) specific to the logged in user, usable when creating a recipe.
+- Manage a user-specific list of recipes (Create, Read, Update, Delete).
+- As administrator, manage a list of tags (Create, Read, Update, Delete), usable when creating a recipe.
+- Choose whether or not to share a recipe on the platform.
+- Possibility of liking recipes (even his own), and finding them in a dedicated page.
+- Recipe search system based on name, description and tags.
