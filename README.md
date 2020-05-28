@@ -10,6 +10,8 @@ Project carried out by Cédric B, Mathieu C and Jérémy L.
 ## Usage
 You can create a user and use the platform as you wish.
 
+The project database is pre-filled, via Laravel's seed system, with two recipes and their ingredients, tags and users.
+
 Two users exist by default:
 - Login : user@user.user - Password : useruser
 - Login : admin@admin.admin - Password : adminadmin
@@ -22,6 +24,7 @@ Two users exist by default:
 - JQuery JS Framework
 - Material Icons Library
 - Summernote WYSIWYG
+- Project deployed on Heroku
 
 ## Achievements
 - View shared recipes without being logged in
