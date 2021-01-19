@@ -1,7 +1,12 @@
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=mathieucollet_recipe_manager)](https://sonarcloud.io/dashboard?id=mathieucollet_recipe_manager)
+
+
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=mathieucollet_recipe_manager&metric=bugs)](https://sonarcloud.io/dashboard?id=mathieucollet_recipe_manager)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=mathieucollet_recipe_manager&metric=code_smells)](https://sonarcloud.io/dashboard?id=mathieucollet_recipe_manager)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=mathieucollet_recipe_manager&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=mathieucollet_recipe_manager)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=mathieucollet_recipe_manager&metric=ncloc)](https://sonarcloud.io/dashboard?id=mathieucollet_recipe_manager)
+
+
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mathieucollet_recipe_manager&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=mathieucollet_recipe_manager)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=mathieucollet_recipe_manager&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=mathieucollet_recipe_manager)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=mathieucollet_recipe_manager&metric=security_rating)](https://sonarcloud.io/dashboard?id=mathieucollet_recipe_manager)
